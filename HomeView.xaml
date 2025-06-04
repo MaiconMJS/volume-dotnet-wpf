@@ -1,0 +1,15 @@
+﻿<mah:MetroWindow x:Class="Volume.HomeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Volume"
+        mc:Ignorable="d"
+        xmlns:mah="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        TitleCharacterCasing="Normal"
+        WindowTitleBrush="Black" 
+        BorderThickness="0"
+        BorderBrush="Black"
+        Icon="Assets/appicon.ico"
+        Title="Volume" Height="600" Width="400" WindowStartupLocation="CenterScreen">
+</mah:MetroWindow>

@@ -1,0 +1,60 @@
+## Compilação
+bin/
+obj/
+
+## Arquivos do Visual Studio
+.vscode/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Logs e temporários
+*.log
+*.tmp
+
+## Arquivos de build intermediários
+*.cache
+*.dbmdl
+*.pdb
+
+## Diretórios gerados por publicação
+publish/
+
+## Arquivos de configuração locais
+appsettings.Development.json
+
+## Ícones e dados de saída
+*.ico
+
+## Pacotes NuGet baixados localmente
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+## Diretório de saída do Rider ou ReSharper
+.idea/
+*.DotSettings.user
+
+## Arquivos do Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+## Backup do Visual Studio
+*_i.c
+*_p.c
+*_h.h
+*.ilk
+*.meta
+
+## Auto-gerado por VS para desempenho
+Generated\
+
+## Testes
+TestResults/
+
+## Config GitHub Copilot (se personalizado)
+copilot.json
