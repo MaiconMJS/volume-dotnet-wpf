@@ -12,4 +12,31 @@
         BorderBrush="Black"
         Icon="Assets/appicon.ico"
         Title="Volume" Height="600" Width="400" WindowStartupLocation="CenterScreen">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border Width="30" Height="300" Background="Gray" CornerRadius="15">
+            <Canvas Width="30" Height="300">
+
+                <Border x:Name="LineBlack" 
+                    Width="3" 
+                    Height="260" 
+                    Background="Black" 
+                    CornerRadius="3"
+                    Canvas.Left="13.5" Canvas.Top="20"/>
+
+                <Border x:Name="ControlCircle" 
+                    Width="20" 
+                    Height="20" 
+                    CornerRadius="20"
+                    Canvas.Left="5"
+                    Canvas.Top="140"
+                    MouseLeftButtonDown="ControlCircle_MouseLeftButtonDown"
+                    MouseLeftButtonUp="ControlCircle_MouseLeftButtonUp"
+                    MouseMove="ControlCircle_MouseMove"
+                    Background="Black"/>
+
+            </Canvas>
+        </Border>
+    </Grid>
+
 </mah:MetroWindow>
