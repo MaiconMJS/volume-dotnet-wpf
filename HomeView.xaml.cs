@@ -28,7 +28,7 @@ namespace Volume
             ControlCircle.CaptureMouse();
         }
 
-        private void ControlCircle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) 
+        private void ControlCircle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             _isDragging = false;
             ControlCircle.ReleaseMouseCapture();
@@ -40,11 +40,15 @@ namespace Volume
             {
                 System.Windows.Point currentPosition = e.GetPosition(this);
                 double deltaY = currentPosition.Y - _dragStartPoint.Y;
-                
+
                 double currentTop = Canvas.GetTop(ControlCircle);
                 double newTop = currentTop + deltaY;
 
                 newTop = Math.Max(20, Math.Min(260, newTop));
+
+                int percent = (int)((260 - newTop) * 100 / (260 - 20));
+
+                Percent.Text = $"{percent}%";
 
                 Canvas.SetTop(ControlCircle, newTop);
 

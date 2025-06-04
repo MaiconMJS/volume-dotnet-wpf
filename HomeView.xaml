@@ -13,7 +13,10 @@
         Icon="Assets/appicon.ico"
         Title="Volume" Height="600" Width="400" WindowStartupLocation="CenterScreen">
 
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <TextBlock x:Name="Percent" Text="50%" Margin="0,0,0,10" FontSize="32" FontWeight="Bold"/>
+
         <Border Width="30" Height="300" Background="Gray" CornerRadius="15">
             <Canvas Width="30" Height="300">
 
@@ -37,6 +40,6 @@
 
             </Canvas>
         </Border>
-    </Grid>
+    </StackPanel>
 
 </mah:MetroWindow>
