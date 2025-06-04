@@ -10,6 +10,7 @@ namespace Volume
 {
     public partial class HomeView : MetroWindow
     {
+        public static HomeView? Instance { get; private set; }
         private NotifyIcon? _trayIcon;
         private ContextMenuStrip? _trayMenu;
 
@@ -19,13 +20,15 @@ namespace Volume
         public HomeView()
         {
             InitializeComponent();
+            Instance = this;
             SetupTrayIcon();
             Percent.Text = GetMasterSystem();
             SyncControlPositionToSystemVolume();
+            UdpReceiver.Start();
         }
 
         // Evento para definir volume do sistema
-        private static void SetMasterVolume(string percentString)
+        public static void SetMasterVolume(string percentString)
         {
             int percent = int.Parse(percentString.Replace("%", ""));
 
@@ -61,6 +64,23 @@ namespace Volume
             double height = 280 - newTop;
             Canvas.SetTop(LineBlue, newTop);
             LineBlue.Height = height;
+        }
+        // Evento para atualizar a barra de volume quando controlado pela rede
+        public void UpdateVolumeUIFromPercentage(int percent)
+        {
+            if (percent < 0 || percent > 100) return;
+
+            Dispatcher.Invoke(() =>
+            {
+                Percent.Text = $"{percent}%";
+
+                double newTop = 260 - (percent / 100.0 * (260 - 20));
+                Canvas.SetTop(ControlCircle, newTop);
+
+                double height = 280 - newTop;
+                Canvas.SetTop(LineBlue, newTop);
+                LineBlue.Height = height;
+            });
         }
 
         // Mouse event click DOWN 
