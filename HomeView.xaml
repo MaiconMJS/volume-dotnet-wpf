@@ -27,6 +27,13 @@
                     CornerRadius="3"
                     Canvas.Left="13.5" Canvas.Top="20"/>
 
+                <Border x:Name="LineBlue"
+                        Width="3"
+                        Height="140"
+                        Background="Blue"
+                        CornerRadius="3"
+                        Canvas.Left="13.5" Canvas.Top="140"/>
+
                 <Border x:Name="ControlCircle" 
                     Width="20" 
                     Height="20" 

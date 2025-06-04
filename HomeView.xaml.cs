@@ -1,4 +1,5 @@
 ﻿using MahApps.Metro.Controls;
+using NAudio.CoreAudioApi;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,8 +20,50 @@ namespace Volume
         {
             InitializeComponent();
             SetupTrayIcon();
+            Percent.Text = GetMasterSystem();
+            SyncControlPositionToSystemVolume();
         }
 
+        // Evento para definir volume do sistema
+        private static void SetMasterVolume(string percentString)
+        {
+            int percent = int.Parse(percentString.Replace("%", ""));
+
+            var enumerador = new MMDeviceEnumerator();
+            var device = enumerador.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+
+            float volume = percent / 100f;
+            device.AudioEndpointVolume.MasterVolumeLevelScalar = volume;
+        }
+
+        // Evento para obter o volume atual do sistema
+        private static string GetMasterSystem()
+        {
+            var enumerador = new MMDeviceEnumerator();
+            var device = enumerador.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+
+            float scalar = device.AudioEndpointVolume.MasterVolumeLevelScalar;
+            int percent = (int)(scalar * 100);
+            return $"{percent}%";
+        }
+
+        // Evento para sincronizar a barra de volume no start do app
+        private void SyncControlPositionToSystemVolume()
+        {
+            var enumerador = new MMDeviceEnumerator();
+            var device = enumerador.GetDefaultAudioEndpoint(DataFlow.Render, Role.Multimedia);
+
+            float volume = device.AudioEndpointVolume.MasterVolumeLevelScalar;
+            double newTop = 260 - (volume * (260 - 20));
+
+            Canvas.SetTop(ControlCircle, newTop);
+
+            double height = 280 - newTop;
+            Canvas.SetTop(LineBlue, newTop);
+            LineBlue.Height = height;
+        }
+
+        // Mouse event click DOWN 
         private void ControlCircle_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             _isDragging = true;
@@ -28,12 +71,14 @@ namespace Volume
             ControlCircle.CaptureMouse();
         }
 
+        // Mouse event click UP 
         private void ControlCircle_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             _isDragging = false;
             ControlCircle.ReleaseMouseCapture();
         }
 
+        // Mouse event click MOVE
         private void ControlCircle_MouseMove(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (_isDragging)
@@ -50,12 +95,20 @@ namespace Volume
 
                 Percent.Text = $"{percent}%";
 
+                SetMasterVolume(Percent.Text);
+
                 Canvas.SetTop(ControlCircle, newTop);
+
+                // Atualiza a linha azul de acordo com o nível de volume do sistema
+                double height = 280 - newTop;
+                Canvas.SetTop(LineBlue, newTop);
+                LineBlue.Height = height;
 
                 _dragStartPoint = currentPosition;
             }
         }
 
+        // Configuração da bandeja do sistema
         private void SetupTrayIcon()
         {
             _trayMenu = new ContextMenuStrip();
@@ -84,6 +137,7 @@ namespace Volume
             };
         }
 
+        // Exibir a janela principal quando o ícone da bandeja é clicado
         private void ShowWindow()
         {
             this.Show();
@@ -91,6 +145,7 @@ namespace Volume
             this.Activate();
         }
 
+        // Evento para fechar a janela, mas manter o ícone na bandeja do sistema
         protected override void OnClosing(CancelEventArgs e)
         {
             e.Cancel = true;

@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="MahApps.Metro" Version="2.4.10" />
+		<PackageReference Include="NAudio" Version="2.2.1" />
 	</ItemGroup>
 
 	<ItemGroup>
