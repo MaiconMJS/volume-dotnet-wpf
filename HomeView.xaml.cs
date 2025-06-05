@@ -24,7 +24,7 @@ namespace Volume
             SetupTrayIcon();
             Percent.Text = GetMasterSystem();
             SyncControlPositionToSystemVolume();
-            UdpReceiver.Start();
+            WebSocketReceiver.Start();
         }
 
         // Evento para definir volume do sistema
