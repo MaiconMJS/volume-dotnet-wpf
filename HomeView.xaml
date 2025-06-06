@@ -15,7 +15,11 @@
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-        <TextBlock x:Name="Percent" Text="50%" Margin="0,0,0,10" FontSize="32" FontWeight="Bold"/>
+        <TextBlock x:Name="Percent" Text="50%" Margin="0,0,0,10" FontSize="32" FontWeight="Bold">
+            <TextBlock.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
 
         <Border Width="30" Height="300" Background="Gray" CornerRadius="15">
             <Canvas Width="30" Height="300">

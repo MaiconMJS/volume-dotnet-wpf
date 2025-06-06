@@ -9,6 +9,8 @@ namespace Volume
 
         public static void Start()
         {
+            if (ws != null && ws.IsAlive) return;
+
             ws = new WebSocket("ws://localhost:3001");
 
             ws.OnOpen += Ws_OnOpen;
