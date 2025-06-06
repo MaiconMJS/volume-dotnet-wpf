@@ -28,7 +28,8 @@ namespace Volume
             SetupTrayIcon();
             Percent.Text = GetMasterSystem();
             SyncControlPositionToSystemVolume();
-            WebSocketReceiver.Start();
+            // Executa o websocket em segundo plano sem interferir na thread principal da UI
+            Task.Run(() => WebSocketReceiver.Start());
         }
 
         // Evento para definir volume do sistema
@@ -82,7 +83,7 @@ namespace Volume
             var scaleUp = new DoubleAnimation
             {
                 To = 1.2,
-                Duration = TimeSpan.FromMilliseconds(100),
+                Duration = TimeSpan.FromMilliseconds(200),
                 AutoReverse = true,
                 EasingFunction = new QuadraticEase { EasingMode = EasingMode.EaseOut }
             };

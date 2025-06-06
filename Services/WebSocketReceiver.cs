@@ -24,6 +24,14 @@ namespace Volume
         private static void Ws_OnOpen(object? sender, EventArgs e)
         {
             Debug.WriteLine("✅ Conectado ao servidor WebSocket.");
+
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (HomeView.Instance != null)
+                {
+                    HomeView.Instance.WebSocketIndicator.Fill = System.Windows.Media.Brushes.Green;
+                }
+            });
         }
 
         private static void Ws_OnMessage(object? sender, MessageEventArgs e)
@@ -48,6 +56,14 @@ namespace Volume
         private static void Ws_OnClose(object? sender, CloseEventArgs e)
         {
             Debug.WriteLine($"🔌 WebSocket desconectado: {e.Reason}");
+
+            System.Windows.Application.Current.Dispatcher.Invoke(() =>
+            {
+                if (HomeView.Instance != null)
+                {
+                    HomeView.Instance.WebSocketIndicator.Fill = System.Windows.Media.Brushes.Red;
+                }
+            });
         }
     }
 }
